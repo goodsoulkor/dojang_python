@@ -171,4 +171,32 @@ print(c(1), c(2), c(3), c(4), c(5))
 # 지역변수와 코드를 묶어서 사용하고 싶을 때 사용한다.
 # 클로저에 속한 지역 변수는 바깥에서 직접 접근할 수 없으므로 데이터를 숨기고 싶을 때 활용
 
-# TODO 여기부터 진행
+# lambda로 클로저 만들기
+def calc():
+    a = 3
+    b = 5
+    return lambda x: a * x + b
+
+
+c = calc()
+print(c(1), c(2), c(3), c(4), c(5))
+print()
+
+# 클로저의 지역 변수 변경하기
+def calc():
+    a = 3
+    b = 5
+    total = 0
+
+    def mul_add(x):
+        nonlocal total
+        total = total + a * x + b
+        print(total)
+
+    return mul_add
+
+
+c = calc()
+c(1)
+c(2)
+c(3)
