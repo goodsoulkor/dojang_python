@@ -38,6 +38,61 @@ class Counter:
 
 # 이터레이터 언패킹
 a, b, c = Counter(3)
-print(a, b, c)
+# print(a, b, c)
 
-# TODO 39.3 진행
+# 인덱스로 접근할 수 있는 이터레이터 만들기
+class Counter:
+    def __init__(self, stop):
+        self.stop = stop
+
+    def __getitem__(self, index):
+        if index < self.stop:
+            return index
+        else:
+            raise IndexError
+
+
+# print(Counter(3)[0], Counter(3)[1], Counter(3)[2])
+
+# for i in Counter(3):
+#     print(i, end=" ")
+
+# __getitem__ 만 구현해도 이터레이터가 된다.
+
+# iter, next 함수 활용하기
+# iter: 객체의 __iter__ 메서드를 호출
+# next: 객체의 __next__ 메서드를 호출
+
+it = iter(range(3))
+print(next(it))
+print(next(it))
+print(next(it))
+print()
+
+# iter
+# 반복을 끝낼 값을 지정하면 특정 값이 나올 때 반복을 끝낸다.
+# iter(호출가능한 객체, 반복을 끝낼 값)
+import random
+
+it = iter(lambda: random.randint(0, 5), 2)
+# print(next(it))
+# 2가 나오면 StopIteration 발생
+
+# for i in iter(lambda: random.randint(0, 5), 2):
+# print(i, end=" ")
+
+# while True:
+#     i = random.randint(0, 5)
+#     if i == 2:
+#         break
+#     print(i, end=" ")
+
+# next
+# 기본값을 지정하면 반복이 끝나더라도 StopIteration이 발생하지 않고 기본값을 출력한다.
+# next(반복가능한 객체, 기본값)
+it = iter(range(3))
+print(next(it, 10))
+print(next(it, 10))
+print(next(it, 10))
+print(next(it, 10))
+print()
